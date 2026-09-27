@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Carnet de veille — design graphique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340..600;1,9..144,400..500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEEBE2;
+  --paper-dark:#E2DFD4;
+  --ink:#181614;
+  --ink-soft:#5b564d;
+  --red:#C1361A;
+  --line:#181614;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:inherit}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#181614; --paper-dark:#211E1A; --ink:#EEEBE2; --ink-soft:#a39d8f; --line:#EEEBE2; --red:#FF6B45;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#181614; --paper-dark:#211E1A; --ink:#EEEBE2; --ink-soft:#a39d8f; --line:#EEEBE2; --red:#FF6B45;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Space Grotesk',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:980px;margin:0 auto;padding:56px 24px 80px;}
+header.hero{border-bottom:2px solid var(--line);padding-bottom:28px;margin-bottom:28px;}
+.kicker{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;letter-spacing:.02em;color:var(--ink-soft);margin-bottom:14px;}
+h1{
+  font-family:'Fraunces',serif; font-optical-sizing:auto;
+  font-weight:420; font-style:italic;
+  font-size:clamp(2.4rem,6.4vw,4.4rem); line-height:0.98; margin:0 0 18px;
+  letter-spacing:-0.01em;
+}
+h1 em{font-style:normal; font-weight:560; color:var(--red);}
+.intro{max-width:56ch;font-size:16px;line-height:1.55;color:var(--ink-soft);}
+.themebtn{
+  border:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-size:12px;
+  padding:5px 10px;cursor:pointer;border-radius:20px;
+}
+
+.controls{
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;position:sticky;top:0;
+  background:var(--paper);padding:14px 0;z-index:5;border-bottom:1px solid var(--paper-dark);
+}
+.chip{
+  border:1px solid var(--line);background:transparent;color:var(--ink);font-family:inherit;
+  font-size:13px;padding:7px 13px 7px 10px;border-radius:20px;cursor:pointer;
+  display:flex;align-items:center;gap:7px;transition:background .15s,color .15s;
+}
+.chip .dot{width:8px;height:8px;border-radius:50%;flex:none;}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);}
+.chip[aria-pressed="true"] .dot{outline:2px solid var(--paper);outline-offset:1px;}
+.chip .count{color:var(--ink-soft);font-size:11px;}
+.chip[aria-pressed="true"] .count{color:var(--paper-dark);}
+
+.searchrow{margin-left:auto;position:relative;}
+#search{
+  font-family:inherit;font-size:13px;background:transparent;border:1px solid var(--line);
+  border-radius:20px;padding:7px 14px;color:var(--ink);width:180px;outline:none;
+}
+#search::placeholder{color:var(--ink-soft);}
+
+.meta{font-size:12px;color:var(--ink-soft);margin:16px 0 6px;}
+
+.grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:1px;background:var(--paper-dark);border:1px solid var(--paper-dark);margin-top:14px;
+}
+.card{
+  background:var(--paper);padding:18px 16px 16px;min-height:128px;
+  display:flex;flex-direction:column;justify-content:space-between;gap:14px;
+  text-decoration:none;color:var(--ink);position:relative;
+}
+.card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+.card .tag{width:9px;height:9px;border-radius:50%;flex:none;margin-top:5px;}
+.card .num{font-size:11px;color:var(--ink-soft);}
+.card h3{
+  font-family:'Fraunces',serif;font-weight:480;font-size:19px;line-height:1.15;margin:0;
+  letter-spacing:-0.005em;
+}
+.card .url{font-size:11.5px;color:var(--ink-soft);word-break:break-all;}
+.card .cat-label{font-size:10.5px;letter-spacing:.04em;color:var(--ink-soft);}
+.card:hover{background:var(--ink);color:var(--paper);}
+.card:hover .num,.card:hover .url,.card:hover .cat-label{color:var(--paper-dark);}
+.card:hover h3{color:var(--paper);}
+.card:focus-visible{outline:2px solid var(--red);outline-offset:-2px;}
+
+.empty{padding:40px 0;text-align:center;color:var(--ink-soft);font-size:14px;display:none;}
+
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--paper-dark);font-size:12px;color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+
+@media (prefers-reduced-motion:no-preference){
+  .card{transition:background .12s ease,color .12s ease;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="kicker">
+      <span>Carnet de veille — n°1</span>
+      <button class="themebtn" id="themeToggle" type="button">Mode clair/sombre</button>
+    </div>
+    <h1>Fonderies, studios<br>et <em>références</em> graphiques</h1>
+    <p class="intro">Une sélection d'adresses pour la veille en design graphique : typographie, identité visuelle, studios indépendants et revues. Cliquez une catégorie pour filtrer, ou cherchez un nom.</p>
+  </header>
+
+  <div class="controls" id="chips"></div>
+  <p class="meta" id="metaCount"></p>
+
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="empty">Aucun résultat pour cette recherche.</p>
+
+  <footer>
+    <span>47 adresses classées à la main</span>
+    <span>Fait avec Claude</span>
+  </footer>
+</div>
+
+<script>
+const DATA = [
+  // Fonderies
+  {n:"Studio Feixen Fonts",u:"https://fonts.studiofeixen.ch/",c:"fonderies"},
+  {n:"096 District",u:"https://096district.gumroad.com/",c:"fonderies"},
+  {n:"Bitmap — Design Family",u:"https://bitmap.designfamilymarket.com/#/",c:"fonderies"},
+  {n:"OTT Foundry",u:"https://ott-foundry.com/",c:"fonderies"},
+  {n:"Open Foundry",u:"https://open-foundry.com/",c:"fonderies"},
+  {n:"Velvetyne",u:"https://velvetyne.fr/",c:"fonderies"},
+  {n:"Displaay Typefaces",u:"https://displaay.net/typefaces",c:"fonderies"},
+  {n:"Extraset",u:"https://extraset.ch/",c:"fonderies"},
+  {n:"Pousse ta Fonte",u:"https://www.poussetafonte.com/",c:"fonderies"},
+  {n:"F37",u:"https://f37.com/",c:"fonderies"},
+  {n:"Pangram Pangram",u:"https://pangrampangram.com/",c:"fonderies"},
+  {n:"205TF",u:"https://www.205.tf/typefaces",c:"fonderies"},
+  {n:"Florian Karsten",u:"https://fonts.floriankarsten.com/",c:"fonderies"},
+
+  // Studios & agences
+  {n:"Weizer",u:"https://weizer.ch/",c:"studios"},
+  {n:"Atelier Tout va bien",u:"https://ateliertoutvabien.com/",c:"studios"},
+  {n:"Studio Kiosk",u:"https://studiokiosk.fr/",c:"studios"},
+  {n:"Atelier Muesli",u:"https://ateliermuesli.com/",c:"studios"},
+  {n:"Spassky Fischer",u:"https://spassky-fischer.fr/",c:"studios"},
+  {n:"Maison Solide",u:"https://maison-solide.fr/",c:"studios"},
+  {n:"Studio Jim",u:"https://www.studiojim.co/",c:"studios"},
+  {n:"Néo Néo",u:"https://www.neoneo.ch/",c:"studios"},
+  {n:"Bänziger Hug",u:"https://www.baenziger-hug.com/",c:"studios"},
+  {n:"Pierre Pierre",u:"https://pierre-pierre.com/",c:"studios"},
+  {n:"Out of the Dark",u:"https://www.outofthedark.swiss/cosplay",c:"studios"},
+
+  // Designers & artistes
+  {n:"Fanette Mellier",u:"https://fanettemellier.com/",c:"designers"},
+  {n:"Gabriel Fontana",u:"https://www.gabrielfontana.com/fr/bio",c:"designers"},
+  {n:"Malou Messien",u:"https://www.maloumessien.fr/",c:"designers"},
+  {n:"Lisa Sturacci",u:"https://www.lisasturacci.com/",c:"designers"},
+  {n:"Jean-Marc Ballée",u:"https://www.jeanmarcballee.fr/",c:"designers"},
+  {n:"Pierre di Sciullo",u:"https://www.instagram.com/pierredisciullo/?hl=fr",c:"designers"},
+  {n:"Marieta Fize",u:"https://marietafize.com/",c:"designers"},
+
+  // Revues & médias
+  {n:"CNAP — Revues de graphisme",u:"https://www.cnap.fr/le-cnap/graphisme-en-france/revues",c:"revues"},
+  {n:"Mémo",u:"https://www.memo-dg.fr/",c:"revues"},
+  {n:"Another Graphic",u:"https://anothergraphic.org/",c:"revues"},
+  {n:"It's Nice That",u:"https://www.itsnicethat.com/",c:"revues"},
+  {n:"It's Nice That — Creatives",u:"https://www.itsnicethat.com/projects-creatives",c:"revues"},
+  {n:"Étapes",u:"https://www.etapes.com/",c:"revues"},
+  {n:"Biennale — Centre national du graphisme",u:"https://www.centrenationaldugraphisme.fr/la-biennale",c:"revues"},
+
+  // Outils & inspiration
+  {n:"Fonts In Use",u:"https://fontsinuse.com/",c:"outils"},
+  {n:"Typewolf",u:"https://www.typewolf.com/",c:"outils"},
+  {n:"Are.na",u:"https://www.are.na/",c:"outils"},
+  {n:"Outils et design graphique",u:"https://lite.framacalc.org/outils-et-design-graphique",c:"outils"},
+  {n:"Savee",u:"https://savee.com/",c:"outils"},
+  {n:"Designspiration",u:"https://www.designspiration.com/explore/",c:"outils"},
+  {n:"Fontpair",u:"https://fontpair.co/",c:"outils"},
+  {n:"Fontjoy",u:"https://fontjoy.com/",c:"outils"},
+  {n:"Logobook",u:"https://logobook.com/",c:"outils"},
+  {n:"Typographic Posters",u:"https://www.typographicposters.com/",c:"outils"},
+  {n:"Awwwards",u:"https://www.awwwards.com/",c:"outils"},
+];
+
+const CATS = [
+  {id:"fonderies",label:"Fonderies",color:"#C1361A"},
+  {id:"studios",label:"Studios",color:"#3C6E47"},
+  {id:"designers",label:"Designers",color:"#B08A2E"},
+  {id:"revues",label:"Revues & médias",color:"#3A5EA8"},
+  {id:"outils",label:"Outils & inspiration",color:"#8B4FA8"},
+];
+const catMap = Object.fromEntries(CATS.map(c=>[c.id,c]));
+
+let activeCats = new Set(CATS.map(c=>c.id));
+let query = "";
+
+const chipsEl = document.getElementById('chips');
+CATS.forEach(cat=>{
+  const btn = document.createElement('button');
+  btn.className='chip'; btn.type='button'; btn.setAttribute('aria-pressed','true');
+  btn.dataset.cat = cat.id;
+  const count = DATA.filter(d=>d.c===cat.id).length;
+  btn.innerHTML = `<span class="dot" style="background:${cat.color}"></span>${cat.label}<span class="count">${count}</span>`;
+  btn.addEventListener('click',()=>{
+    if(activeCats.has(cat.id)){
+      if(activeCats.size===1) return; // keep at least one
+      activeCats.delete(cat.id);
+      btn.setAttribute('aria-pressed','false');
+    } else {
+      activeCats.add(cat.id);
+      btn.setAttribute('aria-pressed','true');
+    }
+    render();
+  });
+  chipsEl.appendChild(btn);
+});
+
+const searchWrap = document.createElement('div');
+searchWrap.className='searchrow';
+searchWrap.innerHTML = `<input id="search" type="search" placeholder="Chercher un nom…">`;
+chipsEl.appendChild(searchWrap);
+document.getElementById('search').addEventListener('input', e=>{
+  query = e.target.value.trim().toLowerCase();
+  render();
+});
+
+const gridEl = document.getElementById('grid');
+const emptyEl = document.getElementById('empty');
+const metaEl = document.getElementById('metaCount');
+
+function render(){
+  const items = DATA.filter(d=> activeCats.has(d.c) && d.n.toLowerCase().includes(query));
+  gridEl.innerHTML='';
+  items.forEach((d,i)=>{
+    const cat = catMap[d.c];
+    const a = document.createElement('a');
+    a.className='card'; a.href=d.u; a.target='_blank'; a.rel='noopener noreferrer';
+    a.innerHTML = `
+      <div class="top">
+        <span class="num">${String(i+1).padStart(2,'0')}</span>
+        <span class="tag" style="background:${cat.color}"></span>
+      </div>
+      <div>
+        <h3>${d.n}</h3>
+        <div class="url">${d.u.replace(/^https?:\/\//,'').replace(/\/$/,'')}</div>
+      </div>
+      <div class="cat-label">${cat.label}</div>
+    `;
+    gridEl.appendChild(a);
+  });
+  emptyEl.style.display = items.length ? 'none' : 'block';
+  metaEl.textContent = `${items.length} adresse${items.length>1?'s':''} affichée${items.length>1?'s':''}`;
+}
+
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  const root = document.documentElement;
+  const current = root.getAttribute('data-theme');
+  if(current === 'dark'){ root.setAttribute('data-theme','light'); }
+  else if(current === 'light'){ root.removeAttribute('data-theme'); }
+  else { root.setAttribute('data-theme','dark'); }
+});
+
+render();
+</script>
+</body>
+</html>
